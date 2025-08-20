@@ -1,0 +1,12 @@
+{
+  "name": "dog-feeder-website",
+  "version": "1.0.0",
+  "description": "Smart Street Dog Feeding And Monitoring System",
+  "scripts": {
+    "start": "serve",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}
