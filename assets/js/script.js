@@ -119,7 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(payload)
                 });
 
-                const result = await response.json();
+                const rawBody = await response.text();
+                let result = {};
+
+                try {
+                    result = rawBody ? JSON.parse(rawBody) : {};
+                } catch (parseError) {
+                    result = { error: rawBody || 'Unexpected server response.' };
+                }
 
                 if (!response.ok) {
                     throw new Error(result.error || 'Unable to send alert.');
