@@ -272,6 +272,78 @@ section {
     flex-wrap: wrap;
 }
 
+.contact {
+    background: linear-gradient(180deg, #f7fbff 0%, #eef6ff 100%);
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 2.3rem;
+    color: var(--dark-color);
+}
+
+.contact-intro {
+    max-width: 760px;
+    margin: 0 auto 2rem;
+    font-size: 1.05rem;
+}
+
+.contact-form-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 2rem;
+    text-align: left;
+}
+
+.contact-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-row {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.form-row label {
+    font-weight: 600;
+}
+
+.form-row input,
+.form-row textarea {
+    width: 100%;
+    border: 1px solid #d2dbe5;
+    border-radius: 8px;
+    padding: 0.8rem 0.9rem;
+    font: inherit;
+    color: var(--text-color);
+    background-color: #fcfdff;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.18);
+}
+
+.contact-status {
+    min-height: 1.4rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+}
+
+.contact-status.success {
+    color: #1f8b4c;
+}
+
+.contact-status.error {
+    color: #b93d3d;
+}
+
 /* About Page */
 .about-hero {
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/dogs/Street Dog 2.jpeg') no-repeat center center/cover;
@@ -627,6 +699,10 @@ footer p {
     .cta-buttons {
         flex-direction: column;
         align-items: center;
+    }
+
+    .contact-form-wrap {
+        padding: 1.3rem;
     }
 
     .hero-content h1, .about-hero h1, .components-hero h1, .gallery-hero h1 {

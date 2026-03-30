@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
     const navLinks = document.querySelectorAll('.nav-links li');
+    const contactForm = document.getElementById('contactForm');
+    const contactStatus = document.getElementById('contactStatus');
 
     // Toggle Navigation
     if (burger) {
@@ -84,6 +86,56 @@ document.addEventListener('DOMContentLoaded', () => {
             img.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200"%3E%3Crect fill="%23cccccc" width="300" height="200"/%3E%3Ctext fill="%23666666" font-family="sans-serif" font-size="14" dy=".5em" text-anchor="middle" x="150" y="100"%3EImage Not Found%3C/text%3E%3C/svg%3E';
         });
     });
+
+    if (contactForm && contactStatus) {
+        contactForm.addEventListener('submit', async event => {
+            event.preventDefault();
+
+            const formData = new FormData(contactForm);
+            const payload = {
+                name: formData.get('name')?.toString().trim(),
+                email: formData.get('email')?.toString().trim(),
+                location: formData.get('location')?.toString().trim(),
+                message: formData.get('message')?.toString().trim()
+            };
+
+            if (!payload.name || !payload.email || !payload.location || !payload.message) {
+                contactStatus.textContent = 'Please fill out all fields before sending.';
+                contactStatus.className = 'contact-status error';
+                return;
+            }
+
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            contactStatus.textContent = 'Sending alert...';
+            contactStatus.className = 'contact-status';
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Unable to send alert.');
+                }
+
+                contactStatus.textContent = 'Alert sent successfully. Thank you for helping street dogs.';
+                contactStatus.className = 'contact-status success';
+                contactForm.reset();
+            } catch (error) {
+                contactStatus.textContent = error.message || 'Something went wrong. Please try again.';
+                contactStatus.className = 'contact-status error';
+            } finally {
+                submitButton.disabled = false;
+            }
+        });
+    }
 });
 
 // Add 'active' class to current page in navigation
